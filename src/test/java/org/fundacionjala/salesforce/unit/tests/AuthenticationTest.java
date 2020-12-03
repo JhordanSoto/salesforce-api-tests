@@ -3,6 +3,7 @@ package org.fundacionjala.salesforce.unit.tests;
 import org.fundacionjala.salesforce.utils.AuthenticationUtils;
 import org.junit.Assert;
 import org.testng.annotations.Test;
+import java.util.Map;
 
 public class AuthenticationTest {
 
@@ -11,7 +12,7 @@ public class AuthenticationTest {
      */
     @Test
     public void getTokenTest() {
-        String actual = AuthenticationUtils.getToken();
-        Assert.assertTrue(actual.startsWith("00D4x00000"));
+        Map<String, String> actual = AuthenticationUtils.getMappedResponse();
+        Assert.assertTrue(actual.get("access_token").startsWith("00D4x00000"));
     }
 }

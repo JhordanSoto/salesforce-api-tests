@@ -28,10 +28,10 @@ public final class AuthenticationUtils {
     }
 
     /**
-     * It try to get the access_token credential from salesforce, sending a request for that purpose.
-     * @return the access_token responsed by salesforce.
+     * It try to get the credentials from salesforce, sending a request for that purpose.
+     * @return the authentication response from salesforce as a Map.
      */
-    public static String getToken() {
+    public static Map getMappedResponse() {
         RestAssured.baseURI = BASE_LOGIN_URL;
         Response response = RestAssured
                 .given()
@@ -42,13 +42,12 @@ public final class AuthenticationUtils {
                 .param(PASSWORD_KEY, PASSWORD_VAL)
                 .when()
                 .post(PATH);
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            Map<String, String> map = mapper.readValue(response.asPrettyString(), Map.class);
-            return map.get("access_token");
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(response.asPrettyString(), Map.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            return null;
         }
-        return "";
     }
 }
