@@ -25,7 +25,7 @@ public class CommonHooks {
     @Before(value = "@createAccount")
     public void createAccount() {
         Response response = RequestManager.post("Account/", "{\"Name\" : \"Example Account\"}");
-        this.context.getDataMap().put("accountId", response.jsonPath().getString("id"));
+        this.context.getDataMap().put("recordId", response.jsonPath().getString("id"));
     }
 
     /**
@@ -34,5 +34,22 @@ public class CommonHooks {
     @After(value = "@deleteAccount")
     public void deleteAccount() {
         RequestManager.delete(Mapper.mapValue("Account/{accountId}", context.getDataMap()));
+    }
+
+    /**
+     * BeforeHook that creates an Campaign for scenarios that require it.
+     */
+    @Before(value = "@createCampaign")
+    public void createCampaign() {
+        Response response = RequestManager.post("Campaign/", "{\"Name\" : \"Example Account\"}");
+        this.context.getDataMap().put("recordId", response.jsonPath().getString("id"));
+    }
+
+    /**
+     * AfterHook that deletes a created Campaign.
+     */
+    @After(value = "@deleteCampaign")
+    public void deleteCampaign() {
+        RequestManager.delete(Mapper.mapValue("Campaign/{recordId}", context.getDataMap()));
     }
 }
