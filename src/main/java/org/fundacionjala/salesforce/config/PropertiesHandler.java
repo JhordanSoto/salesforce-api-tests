@@ -26,6 +26,14 @@ public final class PropertiesHandler extends Environment {
     }
 
     /**
+     * Get the baseLoginUrl property.
+     * @return baseLoginUrl from project's properties.
+     */
+    public String getBaseLoginUrl() {
+        return super.getEnvProperty("baseLoginUrl");
+    }
+
+    /**
      * Get the clientId property.
      * @return clientId from project's properties.
      */
@@ -47,13 +55,6 @@ public final class PropertiesHandler extends Environment {
      */
     public String getGrantType() {
         return super.getEnvProperty("grantType");
-    }
-    /**
-     * Get the keyToken property.
-     * @return keyToken from project's properties.
-     */
-    public String getKeyToken() {
-        return super.getEnvProperty("keyToken");
     }
 
     /**

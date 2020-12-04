@@ -33,7 +33,6 @@ dependencies {
     implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.2'
     implementation group: 'io.rest-assured', name: 'json-schema-validator', version: '4.3.2'
     implementation 'com.github.AT-12:api-tests-core:v1.1'
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
     testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '6.9.0'
     testImplementation group: 'io.cucumber', name: 'cucumber-testng', version: '6.9.0'
     testImplementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '6.9.0'
@@ -102,7 +101,6 @@ task executeBDDTests(type: Test) {
         jvmArgs = ['-Dpassword=' + password]
         jvmArgs = ['-DclientId=' + clientId]
         jvmArgs = ['-DclientSecret=' + clientSecret]
-        jvmArgs = ['-DkeyToken=' + keyToken]
     }
     testLogging.showStandardStreams = true
     scanForTestClasses = false
@@ -121,7 +119,6 @@ task reExecuteBDDTests(type: Test) {
         jvmArgs = ['-Dpassword=' + password]
         jvmArgs = ['-DclientId=' + clientId]
         jvmArgs = ['-DclientSecret=' + clientSecret]
-        jvmArgs = ['-DkeyToken=' + keyToken]
     }
     testLogging.showStandardStreams = true
     scanForTestClasses = false
