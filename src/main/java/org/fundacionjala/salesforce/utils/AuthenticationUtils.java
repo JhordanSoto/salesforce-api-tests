@@ -1,14 +1,13 @@
 package org.fundacionjala.salesforce.utils;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.apache.http.entity.ContentType;
 import org.fundacionjala.salesforce.config.PropertiesHandler;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.Map;
 
 public final class AuthenticationUtils {
-    private static final String BASE_LOGIN_URL = PropertiesHandler.getInstance().getBaseUrl();
+    private static final String BASE_LOGIN_URL = PropertiesHandler.getInstance().getBaseLoginUrl();
+    private static final String BASE_URL = PropertiesHandler.getInstance().getBaseUrl();
     private static final String PATH = "services/oauth2/token";
     private static final String GRANT_TYPE_KEY = "grant_type";
     private static final String GRANT_TYPE_VAL = PropertiesHandler.getInstance().getGrantType();
@@ -29,9 +28,9 @@ public final class AuthenticationUtils {
 
     /**
      * It try to get the credentials from salesforce, sending a request for that purpose.
-     * @return the authentication response from salesforce as a Map.
+     * @return the authentication response from salesforce.
      */
-    public static Map getMappedResponse() {
+    private static Response sendAuthenticationRequest() {
         RestAssured.baseURI = BASE_LOGIN_URL;
         Response response = RestAssured
                 .given()
@@ -42,12 +41,22 @@ public final class AuthenticationUtils {
                 .param(PASSWORD_KEY, PASSWORD_VAL)
                 .when()
                 .post(PATH);
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(response.asPrettyString(), Map.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return response;
+    }
+
+    /**
+     * Get request specifications and set main headers to build the request to send.
+     * @return the request built.
+     */
+    public static RequestSpecification getLoggedReqSpec() {
+        RequestSpecification request = RestAssured.given();
+        Response response = sendAuthenticationRequest();
+        String instanceUrl = response.jsonPath().getString("instance_url");
+        String baseUrl = instanceUrl + BASE_URL;
+        String accessToken =  response.jsonPath().getString("access_token");
+        request.baseUri(baseUrl);
+        request.auth().oauth2(accessToken);
+        request.contentType(ContentType.APPLICATION_JSON.toString());
+        return request;
     }
 }

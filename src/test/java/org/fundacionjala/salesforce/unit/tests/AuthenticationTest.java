@@ -1,18 +1,24 @@
 package org.fundacionjala.salesforce.unit.tests;
 
+import io.restassured.specification.RequestSpecification;
+import org.fundacionjala.core.client.RequestManager;
 import org.fundacionjala.salesforce.utils.AuthenticationUtils;
 import org.junit.Assert;
 import org.testng.annotations.Test;
-import java.util.Map;
 
 public class AuthenticationTest {
 
+    private static final int OK_STATUS_CODE = 200;
+
     /**
-     * Test for getToken method of AuthenticationUtils class.
+     * Test to getLoggedReqSpec and send a request to Salesforce API.
      */
     @Test
-    public void getTokenTest() {
-        Map<String, String> actual = AuthenticationUtils.getMappedResponse();
-        Assert.assertTrue(actual.get("access_token").startsWith("00D4x00000"));
+    public void getResponseForAuthenticatedUserTest() {
+        RequestSpecification request = AuthenticationUtils.getLoggedReqSpec();
+        RequestManager.setRequestSpec(request);
+        int actual = RequestManager.get("Account/0014x000003JAT8AAO").getStatusCode();
+        int expected = OK_STATUS_CODE;
+        Assert.assertEquals(actual, expected);
     }
 }
