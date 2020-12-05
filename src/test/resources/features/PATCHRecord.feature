@@ -6,8 +6,8 @@ Feature: Update Record
     Given the user sets valid authentication to request
 
   @functional @createAccount @deleteAccount
-  Scenario: Verify record is updated with the required parameters
-    When Update the record sending request to "/Account/{recordId}" with the following Json data
+  Scenario: Verifies record is updated with the required parameters
+    When Updates the record sending request to "/Account/{recordId}" with the following Json data
       """
       {
         "BillingCity" : "San Francisco"
@@ -17,8 +17,8 @@ Feature: Update Record
 
 
   @negative  @createAccount
-  Scenario: Verify record is not created without JSON parameters
-    When Update the record sending request to "/Account/{recordId}" with the following Json data
+  Scenario: Verifies record is not created without JSON parameters
+    When Updates the record sending request to "/Account/{recordId}" with the following Json data
     """
 
     """

@@ -21,7 +21,7 @@ Feature: Create Record
 
   @negative
   Scenario: Verifies record is not created without JSON parameters
-    When Create the record sending request to "/Account" with the following Json data
+    When Creates the record sending request to "/Account" with the following Json data
     """
 
     """

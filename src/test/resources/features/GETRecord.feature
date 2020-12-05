@@ -6,8 +6,8 @@ Feature: Get Record
     Given the user sets valid authentication to request
 
   @functional @createAccount @deleteAccount
-  Scenario: Verify record is updated with the required parameters
-    When select the record sending request to "/Account/{recordId}" with the following Json data
+  Scenario: Verifies record is updated with the required parameters
+    When selects the record sending request to "/Account/{recordId}" with the following Json data
     Then verifies response should have the "200" status code
     And verifies response body should match with "common/messageAccountGetResponse.json" JSON schema
     And verifies response should contain the following values
