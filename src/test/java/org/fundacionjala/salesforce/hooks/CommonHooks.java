@@ -33,7 +33,7 @@ public class CommonHooks {
      */
     @After(value = "@deleteAccount")
     public void deleteAccount() {
-        RequestManager.delete(Mapper.mapValue("Account/{accountId}", context.getDataMap()));
+        RequestManager.delete(Mapper.mapValue("Account/{recordId}", context.getDataMap()));
     }
 
     /**
