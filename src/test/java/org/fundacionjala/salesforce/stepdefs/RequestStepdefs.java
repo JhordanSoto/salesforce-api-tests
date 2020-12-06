@@ -18,6 +18,7 @@ import java.util.Map;
 public class RequestStepdefs {
 
     private Response response;
+    private Context context;
 
     /**
      * get the context.
@@ -26,7 +27,7 @@ public class RequestStepdefs {
     public RequestStepdefs(final Context contexts) {
         this.context = contexts;
     }
-    private Context context;
+
 
     /**
      * Sets the valid authentication to request.
@@ -63,45 +64,47 @@ public class RequestStepdefs {
         Assert.assertEquals(response.getStatusCode(), expectedStatusCode);
     }
 
-    /**
-     * update the record sending a request.
-     * @param endpoint
-     * @param body
-     */
-    @When("Update the record sending request to {string} with the following Json data")
-    public void updateTheRecordSendingRequestToWithTheFollowingJsonData(final String endpoint, final String body) {
-        String endpointMapped = Mapper.mapValue(endpoint, context.getDataMap());
-        response = RequestManager.patch(endpointMapped, body);
-    }
+
 
     /**
-     * Delete a record.
+     * sends a DELETE request.
      * @param endpoint
      */
-    @When("Delete the record sending request to {string} with the following Json data")
-    public void deleteTheRecordSendingRequestToWithTheFollowingJsonData(final String endpoint) {
+
+    @When("The user sends a DELETE request to {string} with the following Json data")
+    public void theUserSendsADELETERequestToWithTheFollowingJsonData(final String endpoint) {
         String endpointMapped = Mapper.mapValue(endpoint, context.getDataMap());
         response = RequestManager.delete(endpointMapped);
     }
 
     /**
-     * Create a record.
+     * sends a POST request.
      * @param endpoint
      * @param body
      */
-    @When("Create the record sending request to {string} with the following Json data")
-    public void createTheRecordSendingRequestToWithTheFollowingJsonData(final String endpoint, final String body) {
+    @When("The user sends a POST request to {string} with the following Json data")
+    public void theUserSendsAPOSTRequestToWithTheFollowingJsonData(final String endpoint, final String body) {
         response = RequestManager.post(endpoint, body);
-        System.out.println(response.asPrettyString());
     }
 
     /**
-     * select a record.
+     * Sends a GET request.
      * @param endpoint
      */
-    @When("select the record sending request to {string} with the following Json data")
-    public void selectTheRecordSendingRequestToWithTheFollowingJsonData(final String endpoint) {
+    @When("The user sends a GET request to {string} with the following Json data")
+    public void theUserSendsAGETRequestToWithTheFollowingJsonData(final String endpoint) {
         String endpointMappxd = Mapper.mapValue(endpoint, context.getDataMap());
         response = RequestManager.get(endpointMappxd);
+    }
+
+    /**
+     * sends a PATCH request.
+     * @param endpoint
+     * @param body
+     */
+    @When("The user sends a PATCH request to {string} with the following Json data")
+    public void theUserSendsAPATCHRequestToWithTheFollowingJsonData(final String endpoint, final String body) {
+        String endpointMapped = Mapper.mapValue(endpoint, context.getDataMap());
+        response = RequestManager.patch(endpointMapped, body);
     }
 }
