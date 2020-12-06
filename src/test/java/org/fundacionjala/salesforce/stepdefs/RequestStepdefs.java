@@ -67,18 +67,18 @@ public class RequestStepdefs {
 
 
     /**
-     *
+     * sends a DELETE request.
      * @param endpoint
      */
 
     @When("The user sends a DELETE request to {string} with the following Json data")
-    public void theUserSendsADELETERequestToWithTheFollowingJsonData(String endpoint) {
+    public void theUserSendsADELETERequestToWithTheFollowingJsonData(final String endpoint) {
         String endpointMapped = Mapper.mapValue(endpoint, context.getDataMap());
         response = RequestManager.delete(endpointMapped);
     }
 
     /**
-     *
+     * sends a POST request.
      * @param endpoint
      * @param body
      */
@@ -88,7 +88,7 @@ public class RequestStepdefs {
     }
 
     /**
-     *
+     * Sends a GET request.
      * @param endpoint
      */
     @When("The user sends a GET request to {string} with the following Json data")
@@ -98,7 +98,7 @@ public class RequestStepdefs {
     }
 
     /**
-     *
+     * sends a PATCH request.
      * @param endpoint
      * @param body
      */
