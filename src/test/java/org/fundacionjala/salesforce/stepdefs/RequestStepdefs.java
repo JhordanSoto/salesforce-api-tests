@@ -38,6 +38,14 @@ public class RequestStepdefs {
     }
 
     /**
+     * Sets the invalid authentication to bad request.
+     */
+    @When("The user does not set valid authentication to request")
+    public void setInvalidAuthenticationToRequest() {
+        RequestManager.setRequestSpec(AuthenticationUtils.getNotLoggedReqSpec());
+    }
+
+    /**
      * verifies response body should match with a string JSON schema.
      * @param schemaPath
      */
@@ -93,8 +101,8 @@ public class RequestStepdefs {
      */
     @When("The user sends a GET request to {string} with the following Json data")
     public void theUserSendsAGETRequestToWithTheFollowingJsonData(final String endpoint) {
-        String endpointMappxd = Mapper.mapValue(endpoint, context.getDataMap());
-        response = RequestManager.get(endpointMappxd);
+        String endpointMapped = Mapper.mapValue(endpoint, context.getDataMap());
+        response = RequestManager.get(endpointMapped);
     }
 
     /**

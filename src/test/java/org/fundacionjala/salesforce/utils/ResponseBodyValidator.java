@@ -28,7 +28,6 @@ public final class ResponseBodyValidator {
             String actualValue = response.jsonPath().getString(entry.getKey());
             String expectedValue = entry.getValue();
             Assert.assertEquals(actualValue, expectedValue);
-            System.out.println(expectedValues);
         }
     }
 }
