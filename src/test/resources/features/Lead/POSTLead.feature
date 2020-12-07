@@ -6,7 +6,7 @@ Feature: Create Lead
   Background: Sets authentication
     Given the user sets valid authentication to request
 
-  @functional @deleteLead
+  @functional
   Scenario: Verify lead is created with minimum required parameters
     When The user sends a POST request to "/Lead" with the following Json data
       """
