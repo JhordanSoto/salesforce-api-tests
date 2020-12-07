@@ -25,7 +25,7 @@ Feature: Update Campaign
       }
       """
     Then verifies response should have the "404" status code
-    And verifies response body should match with "common/notFoundResponse.json" JSON schema
+    And verifies response body should match with "Campaign/notFoundResponse.json" JSON schema
     And verifies response should contain the following values
       | [0].message   | Provided external ID field does not exist or is not accessible: -1 |
       | [0].errorCode | NOT_FOUND                                                          |
@@ -85,3 +85,17 @@ Feature: Update Campaign
       | [0].message   | Nombre: valor de datos demasiado grande: Update information of a campaign with more than 80 characters would be get a message error instead a success (max length=80) |
       | [0].errorCode | STRING_TOO_LONG                                                                                                                                                        |
       | [0].fields    | [Name]                                                                                                                                                                 |
+
+  @negative @createAccount @deleteAccount
+  Scenario: Verify that is not possible to edit the information of a campaign when the user is not authorized
+    When The user does not set valid authentication to request
+    And The user sends a PATCH request to "/Campaign/{recordId}" with the following Json data
+     """
+      {
+        "Name" : "New name to Account"
+      }
+      """
+    Then verifies response should have the "401" status code
+    And verifies response should contain the following values
+      | [0].message   | Session expired or invalid |
+      | [0].errorCode | INVALID_SESSION_ID         |

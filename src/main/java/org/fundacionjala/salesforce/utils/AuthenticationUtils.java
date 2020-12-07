@@ -59,4 +59,16 @@ public final class AuthenticationUtils {
         request.contentType(ContentType.APPLICATION_JSON.toString());
         return request;
     }
+
+    /**
+     * Get request specifications to send a request as an unauthorized user.
+     * @return the request built.
+     */
+    public static RequestSpecification getNotLoggedReqSpec() {
+        RequestSpecification request = RestAssured.given();
+        String instanceUrl = sendAuthenticationRequest().jsonPath().getString("instance_url");
+        String baseUrl = instanceUrl + BASE_URL;
+        request.baseUri(baseUrl);
+        return request;
+    }
 }
