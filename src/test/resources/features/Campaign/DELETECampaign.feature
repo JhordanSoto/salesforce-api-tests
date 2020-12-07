@@ -10,6 +10,8 @@ Feature: Delete Campaign
   Scenario: Verify that is possible to delete a campaign
     When The user sends a DELETE request to "/Campaign/{recordId}" with the following Json data
     Then verifies response should have the "204" status code
+    When  The user sends a GET request to "/Campaign/{recordId}" with the following Json data
+    Then verifies response should have the "404" status code
 
   @negative
   Scenario: Verify that is not possible to delete a campaign using an invalid id
