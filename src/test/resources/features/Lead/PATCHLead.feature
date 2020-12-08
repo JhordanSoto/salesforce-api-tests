@@ -87,7 +87,7 @@ Feature: Update Lead
       }
       """
     Then verifies response should have the "404" status code
-    And verifies response body should match with "common/notFoundResponse.json" JSON schema
+    And verifies response body should match with "Lead/notFoundResponse.json" JSON schema
     And verifies response should contain the following values
       | [0].message   | Provided external ID field does not exist or is not accessible: -1 |
       | [0].errorCode | NOT_FOUND                                                          |

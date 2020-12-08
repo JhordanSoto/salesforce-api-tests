@@ -40,7 +40,7 @@ public class RequestStepdefs {
     /**
      * Sets the invalid authentication to bad request.
      */
-    @When("The user does not set valid authentication to request")
+    @Given("The user does not set valid authentication to request")
     public void setInvalidAuthenticationToRequest() {
         RequestManager.setRequestSpec(AuthenticationUtils.getNotLoggedReqSpec());
     }
@@ -114,5 +114,13 @@ public class RequestStepdefs {
     public void theUserSendsAPATCHRequestToWithTheFollowingJsonData(final String endpoint, final String body) {
         String endpointMapped = Mapper.mapValue(endpoint, context.getDataMap());
         response = RequestManager.patch(endpointMapped, body);
+    }
+
+    /**
+     * Save the id of a record to use in the following steps
+     */
+    @And("the record id is saved")
+    public void theRecordIdIsSaved() {
+        context.getDataMap().put("recordId", response.jsonPath().getString("id"));
     }
 }
