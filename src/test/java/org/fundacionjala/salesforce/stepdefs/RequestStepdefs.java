@@ -117,7 +117,7 @@ public class RequestStepdefs {
     }
 
     /**
-     * Save the id of a record to use in the following steps
+     * Save the id of a record to be used in the following steps.
      */
     @And("the record id is saved")
     public void theRecordIdIsSaved() {
