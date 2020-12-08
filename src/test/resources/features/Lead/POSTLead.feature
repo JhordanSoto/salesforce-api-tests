@@ -6,7 +6,7 @@ Feature: Create Lead
   Background: Sets authentication
     Given the user sets valid authentication to request
 
-  @functional
+  @functional @deleteLead
   Scenario: Verify lead is created with minimum required parameters
     When The user sends a POST request to "/Lead" with the following Json data
       """
@@ -15,6 +15,7 @@ Feature: Create Lead
         "Company": "KlondikeQuarry"
        }
       """
+    And the record id is saved
     Then verifies response should have the "201" status code
     And verifies response body should match with "Lead/successResponse.json" JSON schema
     And verifies response should contain the following values

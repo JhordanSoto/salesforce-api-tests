@@ -26,12 +26,3 @@ Feature: Get Record
     And verifies response should contain the following values
       | [0].message   | Provided external ID field does not exist or is not accessible: -1 |
       | [0].errorCode | NOT_FOUND                                                          |
-
-  @negative @createAccount @deleteAccount
-  Scenario: Verify that is not possible to retrieve information of an account when the user is not authorized
-    When The user does not set valid authentication to request
-    And The user sends a GET request to "/Account/{recordId}" with the following Json data
-    Then verifies response should have the "401" status code
-    And verifies response should contain the following values
-      | [0].message   | Session expired or invalid |
-      | [0].errorCode | INVALID_SESSION_ID         |
